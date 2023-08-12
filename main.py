@@ -27,7 +27,7 @@ def save_and_encrypt(title_entry, note_text, key_entry):
 
         selected_file_path = get_selected_folder_path()
 
-        if selected_file_path is not None:
+        if len(selected_file_path) != 0:
             file_path = selected_file_path + '/' + file_name
             save_file(file_path=file_path, title=title, encrypted_message=encrypted_message)
         else:
@@ -58,22 +58,26 @@ def decrypt_and_read(read_code_entry, read_password_entry, read_result_label):
     if len(code) == 0 or len(password) == 0:
         messagebox.showwarning(title='Warning', message='Please enter all info.')
     else:
-        decrypted_message = decode(password, code)
-        read_result_label.config(text=f'Your note: {decrypted_message}')
-        read_result_label.pack(padx=10, pady=10)
-        # Clear widgets
-        read_code_entry.delete(0, END)
-        read_password_entry.delete(0, END)
-        read_code_entry.focus()
+        try:
+            decrypted_message = decode(password, code)
+            read_result_label.config(text=f'Your note: {decrypted_message}', font=('Courier New', 10, 'bold'))
+            read_result_label.pack(padx=10, pady=10)
+            # Clear widgets
+            read_code_entry.delete(0, END)
+            read_password_entry.delete(0, END)
+            read_code_entry.focus()
+        except (ValueError, TypeError):
+            messagebox.showerror(title='Error!', message='Please enter valid encrypted text.')
+            read_code_entry.focus()
 
 
 def save_file(file_path, title, encrypted_message):
     try:
         with open(file_path, 'a') as file:
-            file.write(f'{title}\n{encrypted_message}\n')
+            file.write(f'{title}\n{encrypted_message}\n\n')
     except FileNotFoundError:
         with open(file_path, 'w') as file:
-            file.write(f'{title}\n{encrypted_message}\n')
+            file.write(f'{title}\n{encrypted_message}\n\n')
 
 
 def encode(key, message):
@@ -106,11 +110,8 @@ def select_folder_path(path_label):
 
 
 def get_selected_folder_path():
-    try:
-        with open('file_path.txt', 'r') as file_path:
-            return file_path.read()
-    except FileNotFoundError:
-        return None
+    with open('file_path.txt', 'r') as file_path:
+        return file_path.read()
 
 
 def initWidgets():
@@ -133,7 +134,7 @@ def initWidgets():
 
     selected_save_path = get_selected_folder_path()
 
-    if selected_save_path is None:
+    if len(selected_save_path) == 0:
         save_path = ' Default Path:\n Desktop'
     else:
         save_path = f' Selected Path:\n {selected_save_path}'
@@ -210,7 +211,8 @@ def initWidgets():
 
     decrypt_button = Button(master=read_frame, text=' Decrypt ', font=APPLICATION_FONT,
                             compound=RIGHT, image=icon_decrypt,
-                            relief=SOLID, command=lambda: decrypt_and_read(read_code_entry, read_password_entry, read_result_label))
+                            relief=SOLID,
+                            command=lambda: decrypt_and_read(read_code_entry, read_password_entry, read_result_label))
     decrypt_button.image = icon_decrypt
     decrypt_button.pack(padx=10, pady=10)
 
