@@ -11,7 +11,7 @@ root = Tk()
 def windowSettings():
     root.title(string='Secrets Note')
     root.iconbitmap('app_icon.ico')
-    root.config(pady=20, padx=10)
+    root.config(pady=5, padx=10)
 
 
 def save_and_encrypt(title_entry, note_text, key_entry):
@@ -76,8 +76,7 @@ def save_file(file_path, title, encrypted_message):
         with open(file_path, 'a') as file:
             file.write(f'{title}\n{encrypted_message}\n\n')
     except FileNotFoundError:
-        with open(file_path, 'w') as file:
-            file.write(f'{title}\n{encrypted_message}\n\n')
+        messagebox.showerror(title='Error', message='Selected file path not found. Please change the file path.')
 
 
 def encode(key, message):
@@ -152,7 +151,7 @@ def initWidgets():
     divider.pack(fill="x")
 
     radio_frame = Frame(root)
-    radio_frame.pack(padx=10, pady=10)
+    radio_frame.pack(padx=10)
 
     # Define widgets of the save frame ->
 
@@ -160,19 +159,19 @@ def initWidgets():
     save_frame.pack()
 
     title_label = Label(master=save_frame, text='Enter your title', font=APPLICATION_FONT)
-    title_label.pack(padx=10, pady=10)
+    title_label.pack(padx=10, pady=7)
 
     title_entry = Entry(master=save_frame, width=40, relief=SOLID, borderwidth=2)
     title_entry.pack()
 
     note_label = Label(master=save_frame, text='Enter your note', font=APPLICATION_FONT)
-    note_label.pack(padx=10, pady=10)
+    note_label.pack(padx=10, pady=7)
 
     note_text = Text(master=save_frame, width=40, height=10, relief=SOLID, borderwidth=2)
     note_text.pack()
 
     key_label = Label(master=save_frame, text='PASSWORD', font=APPLICATION_FONT)
-    key_label.pack(padx=10, pady=10)
+    key_label.pack(padx=10, pady=7)
 
     key_entry = Entry(master=save_frame, width=40, show='*', relief=SOLID, borderwidth=2)
     key_entry.pack()
@@ -185,7 +184,7 @@ def initWidgets():
                          compound=RIGHT, image=icon_encrypted,
                          relief=SOLID, command=lambda: save_and_encrypt(title_entry, note_text, key_entry))
     save_button.image = icon_encrypted
-    save_button.pack(padx=15, pady=25)
+    save_button.pack(padx=15, pady=20)
 
     # Define widgets of the read frame ->
 
@@ -229,14 +228,15 @@ def initWidgets():
 
     save_radio_button = Radiobutton(master=radio_frame, text='Save note', value=10, variable=check_state_radio,
                                     font=('Courier New', 10, 'bold'), command=radio_selected)
-    save_radio_button.pack(side='left', padx=10, pady=10)
+    save_radio_button.pack(side='left', padx=10, pady=5)
 
     read_radio_button = Radiobutton(master=radio_frame, text='Read note', value=20, variable=check_state_radio,
                                     font=('Courier New', 10, 'bold'), command=radio_selected)
-    read_radio_button.pack(side='left', padx=10, pady=10)
+    read_radio_button.pack(side='left', padx=10, pady=5)
 
 
 initWidgets()
 windowSettings()
+
 
 root.mainloop()
