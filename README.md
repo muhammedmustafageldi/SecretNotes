@@ -24,7 +24,7 @@ pip install pillow
 
 1. Download or clone the project to your computer.
 2. Open a terminal and navigate to the project directory.
-3. Run the command `python secret_note.py` in the terminal to launch the application.
+3. Run the command `python main.py` in the terminal to launch the application.
 4. Use the user interface to encrypt and save notes, or decrypt and read existing notes.
 
 ## SCREENSHOT
