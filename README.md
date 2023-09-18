@@ -29,11 +29,11 @@ pip install pillow
 
 ## SCREENSHOT
 
-![Interface](https://github.com/muhammedmustafageldi/My-Design-Files/blob/main/Screnshots/SecretNotes/1.png)
+![Interface](https://github.com/muhammedmustafageldi/My-ScreenShots-Files/blob/main/Screnshots/SecretNotes/1.png)
 
-![Save Mode](https://github.com/muhammedmustafageldi/My-Design-Files/blob/main/Screnshots/SecretNotes/2.png)
+![Save Mode](https://github.com/muhammedmustafageldi/My-ScreenShots-Files/blob/main/Screnshots/SecretNotes/2.png)
 
-![Read Mode](https://github.com/muhammedmustafageldi/My-Design-Files/blob/main/Screnshots/SecretNotes/3.png)
+![Read Mode](https://github.com/muhammedmustafageldi/My-ScreenShots-Files/blob/main/Screnshots/SecretNotes/3.png)
 
 ## CONTRIBUTION
 
